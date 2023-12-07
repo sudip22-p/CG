@@ -10,10 +10,15 @@ public static int round(float n) {
 
 // Function for line generation 
 public static void DDALine(int x0, int y0, int x1, int y1) { 
-
+	System.out.println("Starting point: (x,y)= ("+x0+","+y0+")");
+	System.out.println("Ending point: (x,y)= ("+x1+","+y1+")\n");
 	// Calculate dx and dy 
 	int dx = x1 - x0; 
 	int dy = y1 - y0; 
+	float slope=dy/dx;
+	// Take the initial points as x and y 
+	float x = x0; 
+	float y = y0; 
 
 	int step; 
 
@@ -25,29 +30,25 @@ public static void DDALine(int x0, int y0, int x1, int y1) {
 	else
 	step = Math.abs(dy); 
 
-	// Calculate x-increment and y-increment for each step 
-	float x_incr = (float) dx / step; 
-	float y_incr = (float) dy / step; 
-
-	// Take the initial points as x and y 
-	float x = x0; 
-	float y = y0; 
-
 	for (int i = 0; i < step; i++) { 
-
-	// putpixel(round(x), round(y), WHITE); 
-	System.out.print("step "+ (i+1) +" - x,y: "); 
-	System.out.println(round(x) + "," + round(y)); 
-	x += x_incr; 
-	y += y_incr; 
-	// delay(10); 
-	} 
+		if(slope<1){
+			x=x+1;
+			y=y+slope;
+		}else if(slope>1){
+			x=x+1/slope;
+			y=y+1;
+		}else{
+			x=x+1;
+			y=y+1;
+		}
+		System.out.println("Iteration "+(i+1)+" (x,y)= ("+round(x)+","+round(y)+")");
+} 
 } 
 
 // Driver code 
 public static void main(String[] args) { 
 
-	int x0 = 200, y0 = 180, x1 = 180, y1 = 160; 
+	int x0 = 5, y0 = 6, x1 = 8, y1 = 12; 
 
 	// Function call 
 	DDALine(x0, y0, x1, y1); 
